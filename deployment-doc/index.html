@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="计算巢是阿里云开放给企业应用服务商的服务管理平台。服务商能够在计算巢上发布私有化部署服务，为其客户提供云上软件一键部署的能力；同时也支持全托管模式的服务，赋能服务商托管其客户资源。">
+  <title>Pi Web社区版 部署文档 - Aliyun 计算巢 x Demo</title>
+
+  <link rel="shortcut icon" href="../img/favicon.ico">
+
+  <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css">
+  <link rel="stylesheet" href="../css/theme.css">
+  
+
+  
+
+  
+  
+
+  
+    <script src="../search/main.js"></script>
+  
+
+  
+
+  <script src="../js/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+</head>
+
+<body>
+  <div class="container">
+    <div class="nav">
+      <div class="nav-inner">
+        <div class="logo">
+          <img src="./img/logo-2x.png">
+        </div>
+        <div class="nav-list">
+          <ul>
+          
+              <li><a href="#pi-web">Pi Web社区版 部署文档</a></li>
+              
+                  <li><a href="#_1">概述</a></li>
+                  
+              
+                  <li><a href="#_2">部署流程</a></li>
+                  
+                      <li class="li-h3"><a href="#1">1. 创建服务实例</a></li>
+                  
+                      <li class="li-h3"><a href="#2">2. 确认订单并创建</a></li>
+                  
+                      <li class="li-h3"><a href="#3">3. 等待部署完成</a></li>
+                  
+                      <li class="li-h3"><a href="#4">4. 访问服务</a></li>
+                  
+              
+                  <li><a href="#_3">已知行为说明</a></li>
+                  
+              
+                  <li><a href="#_4">官方文档</a></li>
+                  
+              
+          
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="content theme-github">
+      
+      <div class="content-inner">        
+        
+        <h1 id="pi-web">Pi Web社区版 部署文档</h1>
+<h2 id="_1">概述</h2>
+<p>Pi Web社区版 是 pi 编程智能体的浏览器操作界面，提供会话管理与续聊、项目文件浏览、Git 变更对比、模型与技能配置等能力，基于 Next.js 构建并支持中英文双语。通过阿里云计算巢服务，您可以在 ECS 上一键部署 Pi Web，部署完成后通过浏览器即可使用 AI 编码代理，无需手动安装 Node.js 与相关依赖。</p>
+<h2 id="_2">部署流程</h2>
+<h3 id="1">1. 创建服务实例</h3>
+<p>访问 Pi Web社区版 服务部署链接，按提示填写部署参数：</p>
+<p><a href="https://computenest.console.aliyun.com/service/instance/create/cn-hangzhou?type=user&amp;ServiceId=service-12cd8674c40940ecb17d">部署链接</a></p>
+<p>需要关注的参数：</p>
+<ul>
+<li><strong>实例类型</strong>：建议选择 2 vCPU / 8 GiB 及以上规格（示例：<code>ecs.u1-c1m4.large</code>）。</li>
+<li><strong>实例密码</strong>：用于远程登录 ECS 服务器，长度 8–30 位并满足复杂度要求。</li>
+<li><strong>可用区 / 专有网络</strong>：可使用默认的新建专有网络，或选择已有网络。</li>
+<li><strong>百炼 API-KEY（可选）</strong>：填入后部署即可直接使用阿里云百炼 <code>qwen3-coder-plus</code> 模型；留空也能正常部署，登录后在 Models 面板再添加模型 Key 即可。</li>
+</ul>
+<p><img alt="创建服务实例" src="../images/create-instance.png" /></p>
+<h3 id="2">2. 确认订单并创建</h3>
+<p>参数填写完成后可以看到对应询价明细，确认参数后点击 <strong>下一步：确认订单</strong>。确认订单完成后同意服务协议并点击 <strong>立即创建</strong> 进入部署阶段。</p>
+<h3 id="3">3. 等待部署完成</h3>
+<p>等待部署完成后进入服务实例详情页。在 <strong>立即使用</strong> 区可以看到以下信息：</p>
+<table>
+<thead>
+<tr>
+<th>输出项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>pi-web_30141_url</code></td>
+<td>Pi Web 访问地址（端口 30141）</td>
+</tr>
+<tr>
+<td><code>LoginUsername</code></td>
+<td>登录用户名，固定为 <code>pi</code></td>
+</tr>
+<tr>
+<td><code>PiWebPassword</code></td>
+<td>Pi Web 登录密码（部署时自动生成的随机密码）</td>
+</tr>
+<tr>
+<td><code>PresetProvider</code></td>
+<td>预置模型 Provider（阿里云百炼 Qwen / qwen3-coder-plus）</td>
+</tr>
+<tr>
+<td><code>QuickStartGuide</code></td>
+<td>快速使用说明</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="服务实例详情" src="../images/instance-detail.png" /></p>
+<h3 id="4">4. 访问服务</h3>
+<p>单击 <code>pi-web_30141_url</code> 访问地址，浏览器会弹出基本认证登录框。输入用户名 <code>pi</code> 与实例详情页中的 <strong>Pi Web 登录密码</strong> 登录。</p>
+<p>登录后进入 Pi Web 界面：从左侧边栏选择项目目录，点击底部的 <strong>模型</strong> 按钮配置模型（若部署时未填写百炼 API-KEY，请在此为「阿里云百炼 (Qwen)」添加 API Key），随后即可新建会话，开始与 AI 编码代理对话。</p>
+<p><img alt="服务页面" src="../images/service-page.png" /></p>
+<h2 id="_3">已知行为说明</h2>
+<ul>
+<li><strong>登录鉴权</strong>：Pi Web 采用 HTTP Basic 认证，用户名固定为 <code>pi</code>，密码为部署时自动生成的随机密码。请妥善保管密码，勿在公开渠道泄露。</li>
+<li><strong>模型配置</strong>：若部署时未填写百炼 API-KEY，首次登录后需在 Models 面板添加模型 Key，模型选择器方可使用。</li>
+<li><strong>数据持久化</strong>：会话记录与模型/凭证配置保存在服务器 <code>~/.pi/agent</code> 目录下（<code>auth.json</code> / <code>models.json</code> / <code>sessions/*.jsonl</code>）。</li>
+<li><strong>使用须知</strong>：本服务基于第三方开源项目 <a href="https://github.com/agegr/pi-web">pi-web</a>（MIT 许可证）构建，阿里云计算巢仅提供云资源与部署入口。Pi Web 可在您的授权下执行 Shell 命令，请仅在受信任的网络环境中使用，并注意合理管理云资源费用。</li>
+</ul>
+<h2 id="_4">官方文档</h2>
+<p>更多信息请访问项目仓库：<a href="https://github.com/agegr/pi-web">pi-web on GitHub</a></p>
+        
+      </div>
+
+      <div class="copyrights">© 2009-2022 Aliyun.com 版权所有</div>
+    </div>
+  </div>
+  
+  <!--
+  MkDocs version      : 1.6.1
+  Docs Build Date UTC : 2026-08-19 02:10:21.080510+00:00
+  -->
+</body>
+</html>
